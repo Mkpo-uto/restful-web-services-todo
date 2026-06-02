@@ -53,6 +53,7 @@ public class TodoResource {
 	
 	@PostMapping("/users/{username}/todos")
 	public ResponseEntity<Void> saveTodo(@PathVariable String username, @RequestBody Todo todo){
+		todo.setUsername(username);
 		Todo createdTodo = todoService.save(todo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
 		return ResponseEntity.created(uri).build();
